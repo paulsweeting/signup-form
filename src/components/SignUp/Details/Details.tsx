@@ -28,8 +28,8 @@ const Details = () => {
           Last Name
           <Field
             name="lastName"
-            className={`border border-black rounded h-8 outline-none p-3 ${
-              touched.lastName && errors.lastName && "border-red-600"
+            className={`rounded h-8 outline-none p-3 ${
+              touched.lastName && errors.lastName && "border border-red-600"
             }`}
             input
           />
@@ -42,8 +42,8 @@ const Details = () => {
           Email
           <Field
             name="email"
-            className={`border border-black rounded h-8 outline-none p-3 ${
-              touched.email && errors.email && "border-red-600"
+            className={`rounded h-8 outline-none p-3 ${
+              touched.email && errors.email && "border border-red-600"
             }`}
             input
           />
@@ -55,8 +55,8 @@ const Details = () => {
           Password
           <Field
             name="password"
-            className={`border border-black rounded h-8 outline-none p-3 ${
-              touched.password && errors.password && "border-red-600"
+            className={`rounded h-8 outline-none p-3 ${
+              touched.password && errors.password && "border border-red-600"
             }`}
           />
           <p className="text-red-600 text-sm">
