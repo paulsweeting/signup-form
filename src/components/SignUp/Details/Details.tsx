@@ -1,15 +1,16 @@
 import { Field, Form, useFormikContext } from "formik";
 
 const Details = () => {
-  const { values, errors, touched } = useFormikContext<{
+  const { errors, touched } = useFormikContext<{
     email: string;
     firstName: string;
     lastName: string;
     password: string;
   }>();
+
   return (
     <Form>
-      <div className="w-[600px] mx-auto flex flex-col space-y-10 mt-[7%] box border border-black p-14 rounded-lg bg-gray-400">
+      <div className="w-[600px] mx-auto flex flex-col space-y-10 mt-10 box border border-black p-14 rounded-lg bg-gray-400">
         <label className="flex flex-col mb-1 font-medium text-md">
           First Name{" "}
           <Field
@@ -57,7 +58,6 @@ const Details = () => {
             className={`border border-black rounded h-8 outline-none p-3 ${
               touched.password && errors.password && "border-red-600"
             }`}
-            input
           />
           <p className="text-red-600 text-sm">
             {touched.password && errors.password}

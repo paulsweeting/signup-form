@@ -33,6 +33,7 @@ const SignUp = () => {
   return (
     <div>
       {submitted && <h1>Submitted Successfully</h1>}
+      <h1 className="text-center text-xl font-bold mt-[5%]">Sign Up</h1>
       <Formik
         initialValues={initialValues}
         onSubmit={() => setSubmitted(true)}
