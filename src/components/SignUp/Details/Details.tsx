@@ -63,7 +63,9 @@ const Details = () => {
             {touched.password && errors.password}
           </p>
         </label>
-        <button className="bg-purple-600 w-24 h-12 rounded">Submit</button>
+        <button className="bg-purple-700 w-24 h-12 rounded text-white text-medium">
+          Submit
+        </button>
       </div>
     </Form>
   );
