@@ -3,4 +3,4 @@
 2.  Run `npm start` to run the react application
 
 
-Cypress has been setup with typescript and the single page form in react can be tested.
+Cypress has been setup with typescript and the single page form in react can be tested, there are some examples in the cypress folder.
