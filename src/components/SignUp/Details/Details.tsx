@@ -15,6 +15,7 @@ const Details = () => {
           First Name{" "}
           <Field
             name="firstName"
+            data-cy="first-name-input"
             className={`rounded h-8 outline-none p-3 ${
               touched.firstName && errors.firstName && " border border-red-600"
             }`}
@@ -28,6 +29,7 @@ const Details = () => {
           Last Name
           <Field
             name="lastName"
+            data-cy="last-name-input"
             className={`rounded h-8 outline-none p-3 ${
               touched.lastName && errors.lastName && "border border-red-600"
             }`}
@@ -42,6 +44,7 @@ const Details = () => {
           Email
           <Field
             name="email"
+            data-cy="email-input"
             className={`rounded h-8 outline-none p-3 ${
               touched.email && errors.email && "border border-red-600"
             }`}
@@ -55,6 +58,7 @@ const Details = () => {
           Password
           <Field
             name="password"
+            data-cy="password-input"
             className={`rounded h-8 outline-none p-3 ${
               touched.password && errors.password && "border border-red-600"
             }`}
@@ -63,7 +67,9 @@ const Details = () => {
             {touched.password && errors.password}
           </p>
         </label>
-        <button className="bg-purple-700 w-24 h-12 rounded text-white text-medium">
+        <button
+            data-cy="submit-button"
+            className="bg-purple-700 w-24 h-12 rounded text-white text-medium">
           Submit
         </button>
       </div>
