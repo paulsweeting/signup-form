@@ -21,7 +21,7 @@ const Details = () => {
             }`}
             input
           />
-          <p className="text-red-600 text-sm">
+          <p data-cy="first-name-error-message" className="text-red-600 text-sm">
             {touched.firstName && errors.firstName}
           </p>
         </label>

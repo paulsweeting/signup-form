@@ -1,18 +1,22 @@
 // signupForm.ts
 
 class SignupForm {
-  private firstNameInput: string;
-  private lastNameInput: string;
-  private emailInput: string;
-  private passwordInput: string;
-  private submitButton: string;
+  public firstNameInput: string;
+  public firstNameErrorMessage: string;
+  public lastNameInput: string;
+  public emailInput: string;
+  public passwordInput: string;
+  public submitButton: string;
+  public signUpSuccessMessage: string;
 
   constructor() {
     this.firstNameInput = '[data-cy=first-name-input]';
+    this.firstNameErrorMessage = '[data-cy=first-name-error-message]';
     this.lastNameInput = '[data-cy=last-name-input]';
     this.emailInput = '[data-cy=email-input]';
     this.passwordInput = '[data-cy=password-input]';
     this.submitButton = '[data-cy=submit-button]';
+    this.signUpSuccessMessage = 'h1';
   }
 
   public visit(): void {
@@ -22,6 +26,10 @@ class SignupForm {
   public fillFirstName(firstName: string): void {
     cy.get(this.firstNameInput).type(firstName);
   }
+
+  public clickFirstName(): void {
+      cy.get(this.firstNameInput).click();
+    }
 
   public fillLastName(lastName: string): void {
     cy.get(this.lastNameInput).type(lastName);
