@@ -10,7 +10,7 @@ const Details = () => {
 
   return (
     <Form>
-      <div className="w-[600px] mx-auto flex flex-col space-y-10 mt-10 box border border-black p-14 rounded-lg bg-gray-400">
+      <div data-cy="sign-up-form" className="w-[600px] mx-auto flex flex-col space-y-10 mt-10 box border border-black p-14 rounded-lg bg-gray-400">
         <label className="flex flex-col mb-1 font-medium text-md">
           First Name{" "}
           <Field
@@ -35,7 +35,7 @@ const Details = () => {
             }`}
             input
           />
-          <p className="text-red-600 text-sm">
+          <p data-cy="last-name-error-message" className="text-red-600 text-sm">
             {touched.lastName && errors.lastName}
           </p>
         </label>
@@ -50,7 +50,7 @@ const Details = () => {
             }`}
             input
           />
-          <p className="text-red-600 text-sm">
+          <p data-cy="email-error-message" className="text-red-600 text-sm">
             {touched.email && errors.email}
           </p>
         </label>
@@ -63,7 +63,7 @@ const Details = () => {
               touched.password && errors.password && "border border-red-600"
             }`}
           />
-          <p className="text-red-600 text-sm">
+          <p data-cy="password-error-message" className="text-red-600 text-sm">
             {touched.password && errors.password}
           </p>
         </label>

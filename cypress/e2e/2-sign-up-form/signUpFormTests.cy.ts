@@ -11,7 +11,7 @@ describe('Signup', () => {
   });
 });
 
-// Negative Tests - Missing field
+// Negative Tests
 describe('Single missing required field', () => {
   it('should inform the user the field is required', () => {
     SignupForm.visit();
@@ -31,8 +31,32 @@ describe('Single missing required field', () => {
     // Assert the user is told that the first name field is required
     cy.get(SignupForm.firstNameErrorMessage).should('contain', 'Required');
 
-    // Check that the error is only displayed once across the page.
-    cy.contains('Required')
-       .should('have.length', 1) // Verify it is only displayed once
+    // Check that the error is only displayed once within the form.
+    cy.get('[data-cy=sign-up-form]')
+      .find('[data-cy$=-error-message]') //Find all error messages
+      .filter(':contains("Required")') // Only return those displaying the 'Required' error
+      .its('length')
+      .should('eq', 1); // Assert that only one displays "Required"
+    });
+});
+
+describe('All required fields missing', () => {
+  it('should inform the user of all fields that are required', () => {
+    SignupForm.visit();
+
+    // Attempt to submit form having not completed and required fields
+    SignupForm.clickSubmitButton();
+
+    // Assert that the user is NOT signed up
+    cy.get(SignupForm.signUpSuccessMessage)
+      .should('not.contain', 'Submitted Successfully');
+
+    // Check that the error is displayed for the number of required fields
+    cy.get('[data-cy=sign-up-form]')
+      .find('[data-cy$=-error-message]') // select all error messages
+      .should('have.length', 4) // assert that there are 4 matching elements
+      .each(($el) => {
+        expect($el).to.contain('Required'); // assert that each element contains the text 'Required'
       });
+    });
 });

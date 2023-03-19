@@ -13,10 +13,14 @@ class SignupForm {
     this.firstNameInput = '[data-cy=first-name-input]';
     this.firstNameErrorMessage = '[data-cy=first-name-error-message]';
     this.lastNameInput = '[data-cy=last-name-input]';
+    this.lastNameErrorMessage = '[data-cy=last-name-error-message]';
     this.emailInput = '[data-cy=email-input]';
+    this.emailErrorMessage = '[data-cy=email-error-message]';
     this.passwordInput = '[data-cy=password-input]';
+    this.passwordErrorMessage = '[data-cy=password-error-message]'
     this.submitButton = '[data-cy=submit-button]';
     this.signUpSuccessMessage = 'h1';
+    this.signUpForm = '[data-cy=sign-up-form]';
   }
 
   public visit(): void {
