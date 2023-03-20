@@ -13,9 +13,35 @@ describe('Signup', () => {
   });
 });
 
-// Error message is not displayed when user is typing
+describe('User begins typing', () => {
+  it('should NOT display any error messages to the user', () => {
+   SignupForm.visit();
 
-// Error message is dismissed after completing field
+   // User starts to type their first name
+   SignupForm.fillFirstName('J');
+
+   // Assert that no error message is displayed yet
+   cy.get(SignupForm.firstNameErrorMessage).should('be.empty');
+   });
+});
+
+describe('User resolves field error', () => {
+  it('should dismiss the previous error displayed to the user', () => {
+    SignupForm.visit();
+
+    // Attempt to submit empty form triggering error messages
+    SignupForm.clickSubmitButton();
+
+    // Check that some First Name error message is displayed
+    cy.get(SignupForm.firstNameErrorMessage).should('not.be.empty');
+
+    // User completes their first name
+    SignupForm.fillFirstName('Joe');
+
+    // Assert the field error message is removed (empty string)
+    cy.get(SignupForm.firstNameErrorMessage).should('be.empty');
+   });
+});
 
 // ------------------------------------------------------------------------
 //                          NEGATIVE TESTS
@@ -24,7 +50,7 @@ describe('Required field incomplete when clicking on next field', () => {
   it('should inform the user the field is required', () => {
     SignupForm.visit();
 
-    // User clicks on the first name field
+    // User clicks on the first name
     cy.get(SignupForm.firstNameInput).click();
 
     // User proceeds to Last Name without completing First Name
@@ -62,11 +88,11 @@ describe('Single required field missing on submit', () => {
     cy.get(SignupForm.firstNameErrorMessage).should('contain', 'Required');
 
     // Assert that the error is only displayed once within the form.
-    cy.get('[data-cy=sign-up-form]')
-      .find('[data-cy$=-error-message]') //Find all error messages
-      .filter(':contains("Required")') // Only return those displaying the 'Required' error
+    cy.get(SignupForm.signUpForm)
+      .find(SignupForm.allErrorMessages)
+      .filter(':contains("Required")')
       .its('length')
-      .should('eq', 1); // Assert that only one displays "Required"
+      .should('eq', 1);
     });
 });
 
@@ -82,11 +108,11 @@ describe('All required fields missing on submit', () => {
       .should('not.contain', 'Submitted Successfully');
 
     // Assert that the error is displayed for the number of required fields
-    cy.get('[data-cy=sign-up-form]')
-      .find('[data-cy$=-error-message]') // select all error messages
-      .should('have.length', 4) // assert that there are 4 matching elements
+    cy.get(SignupForm.signUpForm)
+      .find(SignupForm.allErrorMessages)
+      .should('have.length', 4)
       .each(($el) => {
-        expect($el).to.contain('Required'); // assert that each element contains the text 'Required'
+        expect($el).to.contain('Required');
       });
     });
 });
@@ -109,11 +135,11 @@ describe('Entered text is too short on submit', () => {
     cy.get(SignupForm.lastNameErrorMessage).should('contain', 'Too Short!');
 
     // Assert that the error is only displayed once within the form.
-    cy.get('[data-cy=sign-up-form]')
-      .find('[data-cy$=-error-message]') //Find all error messages
-      .filter(':contains("Too Short!")') // Only return those displaying the 'Too Short!' error
+    cy.get(SignupForm.signUpForm)
+      .find('[data-cy$=-error-message]')
+      .filter(':contains("Too Short!")')
       .its('length')
-      .should('eq', 1); // Assert that only is error is displayed
+      .should('eq', 1);
     });
 });
 
@@ -136,11 +162,11 @@ describe('Entered text is too long on submit', () => {
     cy.get(SignupForm.passwordErrorMessage).should('contain', 'Too Long!');
 
     // Assert that the error is only displayed once within the form.
-    cy.get('[data-cy=sign-up-form]')
-      .find('[data-cy$=-error-message]') //Find all error messages
-      .filter(':contains("Too Long!")') // Only return those displaying the 'Too Long!' error
+    cy.get(SignupForm.signUpForm)
+      .find(SignupForm.allErrorMessages)
+      .filter(':contains("Too Long!")')
       .its('length')
-      .should('eq', 1); // Assert that only is error is displayed
+      .should('eq', 1);
     });
 });
 
@@ -162,10 +188,10 @@ describe('Invalid email on submit', () => {
     cy.get(SignupForm.emailErrorMessage).should('contain', 'Invalid email');
 
     // Assert that the error is only displayed once within the form.
-    cy.get('[data-cy=sign-up-form]')
-      .find('[data-cy$=-error-message]') //Find all error messages
-      .filter(':contains("Invalid email")') // Only return those displaying the 'Invalid email' error
+    cy.get(SignupForm.signUpForm)
+      .find(SignupForm.allErrorMessages)
+      .filter(':contains("Invalid email")')
       .its('length')
-      .should('eq', 1); // Assert that only is error is displayed
+      .should('eq', 1);
     });
 });

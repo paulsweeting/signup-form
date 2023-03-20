@@ -21,6 +21,7 @@ class SignupForm {
     this.submitButton = '[data-cy=submit-button]';
     this.signUpSuccessMessage = 'h1';
     this.signUpForm = '[data-cy=sign-up-form]';
+    this.allErrorMessages = '[data-cy$=-error-message]';
   }
 
   public visit(): void {
