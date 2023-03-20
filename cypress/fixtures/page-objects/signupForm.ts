@@ -2,6 +2,8 @@
 
 class SignupForm {
   constructor() {
+    this.signUpForm = '[data-cy=sign-up-form]';
+
     this.firstNameInput = '[data-cy=first-name-input]';
     this.lastNameInput = '[data-cy=last-name-input]';
     this.emailInput = '[data-cy=email-input]';
@@ -14,10 +16,10 @@ class SignupForm {
     this.emailErrorMessage = '[data-cy=email-error-message]';
     this.passwordErrorMessage = '[data-cy=password-error-message]'
 
-    this.signUpSuccessMessage = 'h1';
-    this.signUpForm = '[data-cy=sign-up-form]';
+    this.signUpMessage = 'h1';
+    this.signUpSuccessText = 'Submitted Successfully';
 
-    this.fieldErrorMessages = new Map<string, string>([
+    this.fieldErrorText = new Map<string, string>([
         ['required', 'Required'],
         ['minLength', 'Too Short!'],
         ['maxLength', 'Too Long!'],
