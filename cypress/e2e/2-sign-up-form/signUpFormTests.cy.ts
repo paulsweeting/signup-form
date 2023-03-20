@@ -1,7 +1,9 @@
 /// <reference types="cypress" />
 import SignupForm from '../../page-objects/signupForm';
 
-// Positive Test
+// ------------------------------------------------------------------------
+//                          POSITIVE TESTS
+// ------------------------------------------------------------------------
 describe('Signup', () => {
   it('should allow a user to sign up', () => {
     SignupForm.visit();
@@ -11,8 +13,36 @@ describe('Signup', () => {
   });
 });
 
-// Negative Tests
-describe('Single required field missing', () => {
+// Error message is not displayed when user is typing
+
+// Error message is dismissed after completing field
+
+// ------------------------------------------------------------------------
+//                          NEGATIVE TESTS
+// ------------------------------------------------------------------------
+describe('Required field incomplete when clicking on next field', () => {
+  it('should inform the user the field is required', () => {
+    SignupForm.visit();
+
+    // User clicks on the first name field
+    cy.get(SignupForm.firstNameInput).click();
+
+    // User proceeds to Last Name without completing First Name
+    cy.get(SignupForm.lastNameInput).click();
+
+    // Assert the user is told that the first name field is required
+    cy.get(SignupForm.firstNameErrorMessage).should('contain', 'Required');
+
+    // Assert that the error is only displayed once within the form.
+    cy.get('[data-cy=sign-up-form]')
+      .find('[data-cy$=-error-message]') //Find all error messages
+      .filter(':contains("Required")') // Only return those displaying the 'Required' error
+      .its('length')
+      .should('eq', 1); // Assert that only one displays "Required"
+    });
+});
+
+describe('Single required field missing on submit', () => {
   it('should inform the user the field is required', () => {
     SignupForm.visit();
 
@@ -40,7 +70,7 @@ describe('Single required field missing', () => {
     });
 });
 
-describe('All required fields missing', () => {
+describe('All required fields missing on submit', () => {
   it('should inform the user of all fields that are required', () => {
     SignupForm.visit();
 
@@ -61,7 +91,7 @@ describe('All required fields missing', () => {
     });
 });
 
-describe('Entered text is too short', () => {
+describe('Entered text is too short on submit', () => {
   it('should inform the user that text they entered into the field is too short', () => {
     SignupForm.visit();
 
@@ -87,16 +117,14 @@ describe('Entered text is too short', () => {
     });
 });
 
-describe('Entered text is too long', () => {
+describe('Entered text is too long on submit', () => {
   it('should inform the user that text they entered into the field is too long', () => {
     SignupForm.visit();
-
     // Long password
     SignupForm.submitForm('Joe',
                             'Doe',
                             'test@example.com',
                             'thispasswordisreallyreallyreallyreallyreallyreallyreallylong');
-
     // Attempt to submit form
     SignupForm.clickSubmitButton();
 
@@ -116,7 +144,7 @@ describe('Entered text is too long', () => {
     });
 });
 
-describe('Invalid email', () => {
+describe('Invalid email on submit', () => {
   it('should inform the user that the email they entered is invalid', () => {
     SignupForm.visit();
 
