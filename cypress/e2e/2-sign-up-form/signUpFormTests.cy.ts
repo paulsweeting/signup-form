@@ -57,11 +57,12 @@ describe('Required field incomplete when clicking on next field', () => {
     cy.get(SignupForm.lastNameInput).click();
 
     // Assert the user is told that the first name field is required
-    cy.get(SignupForm.firstNameErrorMessage).should('contain', 'Required');
+    cy.get(SignupForm.firstNameErrorMessage)
+      .should('contain', SignupForm.fieldErrorMessages.get('required'));
 
     // Assert that the error is only displayed once within the form.
-    cy.get('[data-cy=sign-up-form]')
-      .find('[data-cy$=-error-message]') //Find all error messages
+    cy.get(SignupForm.signUpForm)
+      .find(SignupForm.allErrorMessages) //Find all error messages
       .filter(':contains("Required")') // Only return those displaying the 'Required' error
       .its('length')
       .should('eq', 1); // Assert that only one displays "Required"
@@ -85,12 +86,13 @@ describe('Single required field missing on submit', () => {
       .should('not.contain', 'Submitted Successfully');
 
     // Assert the user is told that the first name field is required
-    cy.get(SignupForm.firstNameErrorMessage).should('contain', 'Required');
+    cy.get(SignupForm.firstNameErrorMessage).
+       should('contain', SignupForm.fieldErrorMessages.get('required'));
 
     // Assert that the error is only displayed once within the form.
     cy.get(SignupForm.signUpForm)
       .find(SignupForm.allErrorMessages)
-      .filter(':contains("Required")')
+      .filter(`:contains("${ SignupForm.fieldErrorMessages.get('required') }")`)
       .its('length')
       .should('eq', 1);
     });
@@ -112,7 +114,7 @@ describe('All required fields missing on submit', () => {
       .find(SignupForm.allErrorMessages)
       .should('have.length', 4)
       .each(($el) => {
-        expect($el).to.contain('Required');
+        expect($el).to.contain(SignupForm.fieldErrorMessages.get('required'));
       });
     });
 });
@@ -132,12 +134,13 @@ describe('Entered text is too short on submit', () => {
       .should('not.contain', 'Submitted Successfully');
 
     // Assert the user is told that the second name field is too short
-    cy.get(SignupForm.lastNameErrorMessage).should('contain', 'Too Short!');
+    cy.get(SignupForm.lastNameErrorMessage).
+       should('contain', SignupForm.fieldErrorMessages.get('minLength'));
 
     // Assert that the error is only displayed once within the form.
     cy.get(SignupForm.signUpForm)
-      .find('[data-cy$=-error-message]')
-      .filter(':contains("Too Short!")')
+      .find(SignupForm.allErrorMessages)
+      .filter(`:contains("${ SignupForm.fieldErrorMessages.get('minLength') }")`)
       .its('length')
       .should('eq', 1);
     });
@@ -159,12 +162,13 @@ describe('Entered text is too long on submit', () => {
       .should('not.contain', 'Submitted Successfully');
 
     // Assert the user is told that the password entered is too long
-    cy.get(SignupForm.passwordErrorMessage).should('contain', 'Too Long!');
+    cy.get(SignupForm.passwordErrorMessage).
+       should('contain', SignupForm.fieldErrorMessages.get('maxLength'));
 
     // Assert that the error is only displayed once within the form.
     cy.get(SignupForm.signUpForm)
       .find(SignupForm.allErrorMessages)
-      .filter(':contains("Too Long!")')
+      .filter(`:contains("${ SignupForm.fieldErrorMessages.get('maxLength') }")`)
       .its('length')
       .should('eq', 1);
     });
@@ -185,12 +189,13 @@ describe('Invalid email on submit', () => {
       .should('not.contain', 'Submitted Successfully');
 
     // Assert the user is told that email is invalid
-    cy.get(SignupForm.emailErrorMessage).should('contain', 'Invalid email');
+    cy.get(SignupForm.emailErrorMessage).
+       should('contain', SignupForm.fieldErrorMessages.get('invalidEmail'));
 
     // Assert that the error is only displayed once within the form.
     cy.get(SignupForm.signUpForm)
       .find(SignupForm.allErrorMessages)
-      .filter(':contains("Invalid email")')
+      .filter(`:contains("${ SignupForm.fieldErrorMessages.get('invalidEmail') }")`)
       .its('length')
       .should('eq', 1);
     });

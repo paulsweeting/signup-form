@@ -1,30 +1,32 @@
 // signupForm.ts
 
 class SignupForm {
-  public firstNameInput: string;
-  public firstNameErrorMessage: string;
-  public lastNameInput: string;
-  public emailInput: string;
-  public passwordInput: string;
-  public submitButton: string;
-  public signUpSuccessMessage: string;
-
   constructor() {
     this.firstNameInput = '[data-cy=first-name-input]';
-    this.firstNameErrorMessage = '[data-cy=first-name-error-message]';
     this.lastNameInput = '[data-cy=last-name-input]';
-    this.lastNameErrorMessage = '[data-cy=last-name-error-message]';
     this.emailInput = '[data-cy=email-input]';
-    this.emailErrorMessage = '[data-cy=email-error-message]';
     this.passwordInput = '[data-cy=password-input]';
-    this.passwordErrorMessage = '[data-cy=password-error-message]'
     this.submitButton = '[data-cy=submit-button]';
+
+    this.allErrorMessages = '[data-cy$=-error-message]';
+    this.firstNameErrorMessage = '[data-cy=first-name-error-message]';
+    this.lastNameErrorMessage = '[data-cy=last-name-error-message]';
+    this.emailErrorMessage = '[data-cy=email-error-message]';
+    this.passwordErrorMessage = '[data-cy=password-error-message]'
+
     this.signUpSuccessMessage = 'h1';
     this.signUpForm = '[data-cy=sign-up-form]';
-    this.allErrorMessages = '[data-cy$=-error-message]';
+
+    this.fieldErrorMessages = new Map<string, string>([
+        ['required', 'Required'],
+        ['minLength', 'Too Short!'],
+        ['maxLength', 'Too Long!'],
+        ['invalidEmail', 'Invalid email'],
+     ]);
   }
 
   public visit(): void {
+    //TODO - Use environment variables
     cy.visit('http://localhost:3000');
   }
 
